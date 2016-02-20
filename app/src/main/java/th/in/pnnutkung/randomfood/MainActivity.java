@@ -60,15 +60,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadData(){
+        if(foodList == null){
+            foodList = new ArrayList<String>();
+        }
         FileInputStream inputStream;
         ObjectInputStream ois = null;
         try {
             inputStream = openFileInput(filename);
             ois = new ObjectInputStream(inputStream);
             foodList = (ArrayList<String>)ois.readObject();
-            if(foodList == null){
-                foodList = new ArrayList<String>();
-            }
+
         } catch (ClassNotFoundException cnfe){
             Log.e("Load food","Serialization problem.");
         } catch (IOException ioe) {

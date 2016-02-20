@@ -19,7 +19,8 @@
             android:name=".addNewFood"
             android:label="@string/title_activity_add_new_food"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="th.in.pnnutkung.randomfood.MainActivity" />
