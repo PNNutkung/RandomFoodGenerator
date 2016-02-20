@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +21,14 @@ public class MainActivity extends AppCompatActivity {
 
     static final String filename = "foodData";
     private List<String> foodList;
+    private int currentIndex;
     private File foodData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadData();
     }
 
     @Override
@@ -47,25 +51,45 @@ public class MainActivity extends AppCompatActivity {
             ous = new ObjectOutputStream(outputStream);
             ous.writeObject(foodData);
         } catch (Exception e){
-            e.printStackTrace();
+            Log.e("Save","Got some problem");
+        } finally {
+            try{
+                ous.close();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
     private void loadData(){
-        String filename = "foodData";
         FileInputStream inputStream;
-
-        try{
+        ObjectInputStream ois = null;
+        try {
             inputStream = openFileInput(filename);
-            inputStream.read();
-            inputStream.close();
-        } catch (Exception e){
-            e.printStackTrace();
+            ois = new ObjectInputStream(inputStream);
+            foodList = (ArrayList<String>)ois.readObject();
+            if(foodList == null){
+                foodList = new ArrayList<String>();
+            }
+        } catch (ClassNotFoundException cnfe){
+            Log.e("Load food","Serialization problem.");
+        } catch (IOException ioe) {
+            Log.e("Load food","No food file.");
+        } finally {
+            try {
+                if(ois != null) {
+                    ois.close();
+                }
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
     public void randomFoodName(View view){
-        foodList = new ArrayList<String>();
+        if(foodList == null) {
+            foodList = new ArrayList<String>();
+        }
         if(foodList.size() == 0) {
             foodList.add("กระเพราหมูสับ");
             foodList.add("คาโบนาร่า");
@@ -75,8 +99,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         int rand = (int)Math.floor(Math.random() * foodList.size());
-        TextView textView = (TextView)findViewById(R.id.random_text_view);
-        textView.setText(foodList.get(rand));
+        if(currentIndex != rand) {
+            currentIndex = rand;
+            TextView textView = (TextView) findViewById(R.id.random_text_view);
+            textView.setText(foodList.get(rand));
+        } else {
+            Log.i("Random","Got same previous index");
+            randomFoodName(view);
+        }
     }
 
     @Override
