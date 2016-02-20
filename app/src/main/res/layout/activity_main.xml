@@ -38,7 +38,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:textColor="#fff"
-        android:background="#42A5F5"/>
+        android:background="#42A5F5"
+        android:onClick="goToAddNewFood"/>
 
 
 </RelativeLayout>

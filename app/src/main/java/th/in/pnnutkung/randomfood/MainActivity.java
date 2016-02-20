@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     static final String filename = "foodData";
     private List<String> foodList;
     private int currentIndex;
-    private File foodData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         try{
             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
             ous = new ObjectOutputStream(outputStream);
-            ous.writeObject(foodData);
+            ous.writeObject(foodList);
         } catch (Exception e){
             Log.e("Save","Got some problem");
         } finally {
@@ -87,10 +85,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void randomFoodName(View view){
-        if(foodList == null) {
-            foodList = new ArrayList<String>();
-        }
-        if(foodList.size() == 0) {
+        Log.i("Random","ArrayList size"+foodList.size());
+        if(foodList.size() <= 1) {
             foodList.add("กระเพราหมูสับ");
             foodList.add("คาโบนาร่า");
             foodList.add("ไข่เจียว");
@@ -103,10 +99,15 @@ public class MainActivity extends AppCompatActivity {
             currentIndex = rand;
             TextView textView = (TextView) findViewById(R.id.random_text_view);
             textView.setText(foodList.get(rand));
-        } else {
+        } else if ( foodList.size() > 1){
             Log.i("Random","Got same previous index");
             randomFoodName(view);
         }
+    }
+
+    public void goToAddNewFood(View view){
+        Intent intent = new Intent(this, addNewFood.class);
+        startActivityForResult(intent,1);
     }
 
     @Override
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void addNewFood(String food){
+    private void addNewFood(String food){
         foodList.add(food);
         saveData();
     }
