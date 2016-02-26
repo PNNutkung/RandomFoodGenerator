@@ -1,4 +1,4 @@
-package th.in.pnnutkung.randomfood;
+package th.in.pnnutkung.randomfood.models;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+
+import th.in.pnnutkung.randomfood.R;
 
 public class addNewFood extends AppCompatActivity {
 
