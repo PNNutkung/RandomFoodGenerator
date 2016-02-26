@@ -1,4 +1,4 @@
-package th.in.pnnutkung.randomfood.models;
+package th.in.pnnutkung.randomfood.controllers;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,6 +10,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import th.in.pnnutkung.randomfood.models.Food;
 
 /**
  * Created by Pipatpol on 2559-02-26.

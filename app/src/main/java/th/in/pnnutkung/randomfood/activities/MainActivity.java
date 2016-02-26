@@ -7,26 +7,37 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import th.in.pnnutkung.randomfood.R;
 import th.in.pnnutkung.randomfood.models.Food;
-import th.in.pnnutkung.randomfood.models.Storage;
-import th.in.pnnutkung.randomfood.models.addNewFood;
+import th.in.pnnutkung.randomfood.controllers.Storage;
 
 public class MainActivity extends AppCompatActivity {
 
     private int currentIndex;
+    private List<Food> foodList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Storage.getInstance().loadFoods(this);
+        initComponents();
+    }
+
+    private void initComponents(){
+        foodList = new ArrayList<Food>();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        refreshFoods();
     }
 
     public void randomFoodName(View view){
-        List<Food> foodList = Storage.getInstance().getFoods();
+        foodList = Storage.getInstance().getFoods();
         Log.i("Random","ArrayList size"+foodList.size());
         if(foodList.size() <= 1) {
             Storage.getInstance().saveFood(this,new Food("กระเพราหมูสับ"));
@@ -58,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
         if((resultCode == RESULT_OK)&&(requestCode == 1)){
             Log.i("Add", "New food name = " + data.getStringExtra("name"));
             addNewFood(data.getStringExtra("name"));
+        }
+    }
+
+    private void refreshFoods(){
+        foodList.clear();
+        for (Food food:
+                Storage.getInstance().loadFoods(this)) {
+            foodList.add(food);
         }
     }
 

@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".models.addNewFood"
+            android:name=".activities.addNewFood"
             android:label="@string/title_activity_add_new_food"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"

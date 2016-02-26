@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">RandomFood</string>
-    <string name="title_activity_add_new_food">addNewFood</string>
+    <string name="title_activity_add_new_food">Add a New Food</string>
 </resources>

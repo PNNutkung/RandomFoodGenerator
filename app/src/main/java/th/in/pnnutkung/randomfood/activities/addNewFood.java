@@ -1,4 +1,4 @@
-package th.in.pnnutkung.randomfood.models;
+package th.in.pnnutkung.randomfood.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

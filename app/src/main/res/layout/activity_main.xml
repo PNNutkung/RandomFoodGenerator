@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:configChanges="keyboardHidden|orientation|screenSize"
     tools:context=".activities.MainActivity">
 
     <TextView
@@ -16,6 +17,7 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:text="Please push button below."
+        android:freezesText="true"
         android:layout_above="@+id/random_btn"
         android:textSize="35dp"/>
     <Button
@@ -35,14 +37,13 @@
     <Button
         android:id="@+id/add_btn"
         android:text="Add new food"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:textColor="#fff"
         android:background="#42A5F5"
-        android:onClick="goToAddNewFood"
-        android:padding="5dp"/>
+        android:onClick="goToAddNewFood" />
 
 
 </RelativeLayout>
